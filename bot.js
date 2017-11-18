@@ -1,4 +1,6 @@
 const BootBot = require('bootbot');
+const fs = require('fs');
+const path = require('path')
 const env = require('node-env-file');
 
 env(__dirname + '/.env');
@@ -24,9 +26,11 @@ const bot = new BootBot({
   appSecret: process.env.app_secret,
 });
 
-bot.on('message', (payload, chat) => {
-  const text = payload.message.text;
-  chat.say(`Echo: ${text}`);
+// add all modules in modules/
+var normalizedPath = path.join(__dirname, 'modules');
+fs.readdirSync(normalizedPath).forEach(function(file) {
+  const module = require(path.join(normalizedPath, file));
+  bot.module(module);
 });
 
 bot.start();
