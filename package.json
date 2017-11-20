@@ -1,7 +1,7 @@
 {
   "name": "abeeya",
   "version": "1.0.0",
-  "description": "Abeeya chatbot",
+  "description": "Bootbot starter",
   "main": "bot.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
