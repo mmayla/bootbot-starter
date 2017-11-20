@@ -28,6 +28,28 @@ const bot = new BootBot({
   appSecret: process.env.app_secret,
 });
 
+bot.setGreetingText('Hey there! Welcome to BootBot!');
+bot.setGetStartedButton((payload, chat) => {
+  chat.say('Welcome to BootBot. What are you looking for?');
+});
+bot.setPersistentMenu([
+  {
+    type: 'postback',
+    title: 'Help',
+    payload: 'PERSISTENT_MENU_HELP',
+  },
+  {
+    type: 'postback',
+    title: 'Settings',
+    payload: 'PERSISTENT_MENU_SETTINGS',
+  },
+  {
+    type: 'web_url',
+    title: 'Go to Website',
+    url: 'http://yostik.io',
+  },
+]);
+
 // add all modules in modules/
 const normalizedPath = path.join(__dirname, 'modules');
 fs.readdirSync(normalizedPath).forEach((file) => {
@@ -35,4 +57,4 @@ fs.readdirSync(normalizedPath).forEach((file) => {
   bot.module(module);
 });
 
-bot.start();
+bot.start(process.env.PORT);
